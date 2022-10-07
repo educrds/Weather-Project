@@ -1,0 +1,130 @@
+@font-face {
+  font-family: "San Francisco";
+  font-weight: 400;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
+}
+.dark-mode:root {
+  --bg-body: #0d1520;
+  --text-color: #fefefe;
+  --bg-card: #212836;
+  --border-color: rgba(207, 212, 217, 0.1);
+  --icon-toggle-mode: "\f185";
+}
+:root {
+  --bg-body: #f5f5f5;
+  --text-color: #001a5e;
+  --bg-card: #FFFFFF;
+  --border-color: #cfd4d9;
+  --icon-toggle-mode: "\f186";
+}
+body {
+  font-family: "San Francisco", -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-body);
+  color: var(--text-color);
+  transition: all 0.5s ease-in;
+  transition-delay: 200ms;
+}
+.nav {
+  color: #e2e1e1;
+  font-size: 1.3rem;
+  justify-content: center;
+  padding: 1vh 0vw;
+}
+.brazilFlag{
+  width: 40px;
+  height: 36px;
+}
+.btn {
+  background-color: none;
+  border: none;
+  font-family: "San Francisco";
+}
+.btnState,
+.btnCity {
+  width: 200px;
+}
+.toggleModeBtn {
+  padding: 0.2vh 0.2vw;
+  transition: all 0.5s ease-in;
+  transition-delay: 200ms;
+}
+#toggleIcon {
+  width: 3vw;
+}
+#toggleIcon:before {
+  content: var(--icon-toggle-mode);
+  font-family: fontAwesome;
+  font-size: 1.5rem;
+  color: #636872;
+  width: 1vw;
+}
+#country-dropdown,
+#city-dropdown,
+#search-button {
+  color: #636872;
+  background-color: var(--bg-card);
+  border-color: var(--border-color);
+  transition: all 0.5s ease-in;
+  transition-delay: 200ms;
+}
+.title {
+  font-size: 2.3rem;
+}
+#city {
+  font-weight: 700;
+}
+#cityNavBar {
+  color: var(--text-color);
+  font-weight: 500;
+  transition: all 0.5s ease-in;
+  transition-delay: 200ms;
+}
+.squares {
+  width: 100%;
+  max-width: 620px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.container {
+  margin-left: auto;
+  margin-right: auto;
+}
+.card {
+    background-color: var(--bg-card);
+  border-radius: 25px;
+  background-color: var(--bg-card);
+  transition: all 0.5s ease-in;
+  transition-delay: 200ms;
+}
+.card-body {
+  color: var(--text-color);
+  transition: all 0.5s ease-in;
+
+  transition-delay: 200ms;
+}
+.cardTitle {
+  font-size: 3.5rem;
+  font-weight: 600;
+}
+.temperature {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+/* Excluindo Icone do Dropdown */
+.dropdown-toggle::after {
+  display: none !important;
+}
+#search-button:hover {
+  background-color: var(--text-color);
+  border: none;
+  color: #fefefe;
+}
+/* ----------------------404 Page---------------------- */
+#title404{
+  font-size: 3rem;
+  line-height: 3rem;
+  font-weight: 500;
+}
+#allElements{
+  display: none;
+}
