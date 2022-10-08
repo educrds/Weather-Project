@@ -2,7 +2,6 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
-const APInode = "d63bfabd0c861ed3e5d836ba9c75e4ba"
 
 const app = express();
 app.set("view engine", "ejs");
