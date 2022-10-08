@@ -83,6 +83,8 @@ buttonSearch.addEventListener("click", function () {
   const API = "d63bfabd0c861ed3e5d836ba9c75e4ba";
   elements.style.display = "block";  
 
+  document.getElementById("cityNavBar").innerHTML = `${city}-${iso}`;
+  document.getElementById("city").innerHTML = city;
 
   //   ------------------------ API WEATHER ---------------------------------
   fetch(
@@ -92,9 +94,7 @@ buttonSearch.addEventListener("click", function () {
       return res.json();
     })
     .then((data) => {
-      document.getElementById("cityNavBar").innerHTML = `${city}-${iso}`;
 
-      document.getElementById("city").innerHTML = city;
 
       document.getElementById("description").innerHTML =
         `${data.weather[0].description} em`;
