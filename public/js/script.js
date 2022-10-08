@@ -14,13 +14,12 @@ var requestOptions = {
   redirect: "follow",
 };
 
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 //   ------------------------  EVENTO DE CARREGAMENTO DA PÁGINA ------------------
 document.addEventListener("DOMContentLoaded", () => {
   let option;
-  
-  function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
 
   var day = new Date().toLocaleDateString("pt-br", {
     weekday: "long",
@@ -81,12 +80,13 @@ buttonSearch.addEventListener("click", function () {
   const iso = countryDropdown.options[countryDropdown.selectedIndex].id;
   
   const elements = document.getElementById("allElements");
-
+  const API = "d63bfabd0c861ed3e5d836ba9c75e4ba";
   elements.style.display = "block";  
+
 
   //   ------------------------ API WEATHER ---------------------------------
   fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=d63bfabd0c861ed3e5d836ba9c75e4ba&units=metric&lang=pt_br`
+    `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API}&units=metric&lang=pt_br`
   )
     .then((res) => {
       return res.json();
@@ -97,7 +97,7 @@ buttonSearch.addEventListener("click", function () {
       document.getElementById("city").innerHTML = city;
 
       document.getElementById("description").innerHTML =
-        data.weather[0].description;
+        `${data.weather[0].description} em`;
 
       document.getElementById(
         "weatherImg"
