@@ -101,7 +101,7 @@ buttonSearch.addEventListener("click", function () {
 
       document.getElementById(
         "weatherImg"
-      ).src = `imgs/${data.weather[0].icon}.svg`;
+      ).src = `public/imgs/${data.weather[0].icon}.svg`;
 
       document.getElementById("temp").innerHTML = Math.round(data.main.temp);
 
