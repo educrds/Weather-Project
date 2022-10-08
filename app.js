@@ -12,10 +12,10 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", function (req, res) {
-  res.sendFile(__dirname + "/views/index.html");
+  res.sendFile(__dirname + "/index.html");
 });
 app.get("/404", function (req, res) {
-  res.sendFile(__dirname + "/views/404.html");
+  res.sendFile(__dirname + "/404.html");
 });
 
 app.post("/", function (req, res) {});
