@@ -121,7 +121,7 @@ buttonSearch.addEventListener("click", function () {
       );
     })
     .catch((err) => {
-        window.location.href = "/404"
+        window.location.href = "404.html"
     });
 });
 
