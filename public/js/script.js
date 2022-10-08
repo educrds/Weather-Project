@@ -95,7 +95,6 @@ buttonSearch.addEventListener("click", function () {
     })
     .then((data) => {
 
-
       document.getElementById("description").innerHTML =
         `${data.weather[0].description} em`;
 
