@@ -101,7 +101,7 @@ buttonSearch.addEventListener("click", function () {
 
       document.getElementById(
         "weatherImg"
-      ).src = `imgs/${data.weather[0].icon}.svg`;
+      ).src = `public/imgs/${data.weather[0].icon}.svg`;
 
       document.getElementById("temp").innerHTML = Math.round(data.main.temp);
 
@@ -123,7 +123,7 @@ buttonSearch.addEventListener("click", function () {
       );
     })
     .catch((err) => {
-      window.location.href = "/404";
+        window.location.href = "404.html"
     });
 });
 
