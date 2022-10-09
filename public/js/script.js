@@ -1,5 +1,10 @@
-const countryDropdown = document.getElementById("country-dropdown");
+const stateDropdown = document.getElementById("state-dropdown");
 const cityDropdown = document.getElementById("city-dropdown");
+const buttonSearch = document.getElementById("search-button");
+const toggle = document.getElementById("toggle");
+
+const elements = document.getElementById("allElements");
+const API = "d63bfabd0c861ed3e5d836ba9c75e4ba";
 
 //   ------------------------ API COUNTRIES HEADER ---------------------------------
 var headers = new Headers();
@@ -38,20 +43,20 @@ document.addEventListener("DOMContentLoaded", () => {
         option = document.createElement("option");
         option.setAttribute("id", item.iso2);
         option.text = item.name;
-        countryDropdown.add(option);
+        stateDropdown.add(option);
       })
     )
     .catch((error) => console.log("error", error));
 });
 
 //   ------------------------ EVENTO AO ALTERAR PAIS ---------------------------------
-countryDropdown.addEventListener("change", function () {
-  const iso = countryDropdown.options[countryDropdown.selectedIndex].id;
+stateDropdown.addEventListener("change", function () {
+  const iso = stateDropdown.options[stateDropdown.selectedIndex].id;
 
   cityDropdown.length = 0;
 
-  let defaultOption = document.createElement('option');
-  defaultOption.text = 'Cidade';
+  let defaultOption = document.createElement("option");
+  defaultOption.text = "Cidade";
 
   cityDropdown.add(defaultOption);
   cityDropdown.selectedIndex = 0;
@@ -68,20 +73,15 @@ countryDropdown.addEventListener("change", function () {
         option.text = item.name;
         cityDropdown.add(option);
       })
-      
     )
     .catch((error) => console.log("error", error));
 });
 
-const buttonSearch = document.getElementById("search-button");
-
 buttonSearch.addEventListener("click", function () {
+  elements.style.display = "block";
+
   const city = cityDropdown.options[cityDropdown.selectedIndex].text;
-  const iso = countryDropdown.options[countryDropdown.selectedIndex].id;
-  
-  const elements = document.getElementById("allElements");
-  const API = "d63bfabd0c861ed3e5d836ba9c75e4ba";
-  elements.style.display = "block";  
+  const iso = stateDropdown.options[stateDropdown.selectedIndex].id;
 
   document.getElementById("cityNavBar").innerHTML = `${city}-${iso}`;
   document.getElementById("city").innerHTML = city;
@@ -95,8 +95,9 @@ buttonSearch.addEventListener("click", function () {
     })
     .then((data) => {
 
-      document.getElementById("description").innerHTML =
-        `${data.weather[0].description} em`;
+      document.getElementById(
+        "description"
+      ).innerHTML = `${data.weather[0].description} em`;
 
       document.getElementById(
         "weatherImg"
@@ -104,7 +105,9 @@ buttonSearch.addEventListener("click", function () {
 
       document.getElementById("temp").innerHTML = Math.round(data.main.temp);
 
-      document.getElementById("tempMin").innerHTML = Math.round(data.main.temp_min);
+      document.getElementById("tempMin").innerHTML = Math.round(
+        data.main.temp_min
+      );
 
       document.getElementById("tempMax").innerHTML = Math.round(
         data.main.temp_max
@@ -120,12 +123,10 @@ buttonSearch.addEventListener("click", function () {
       );
     })
     .catch((err) => {
-        window.location.href = "/404"
+      window.location.href = "/404";
     });
 });
 
-const toggle = document.getElementById("toggle");
-
-toggle.addEventListener("click", ()=>{
+toggle.addEventListener("click", () => {
   document.documentElement.classList.toggle("dark-mode");
-})
+});
