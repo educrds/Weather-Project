@@ -78,7 +78,6 @@ stateDropdown.addEventListener("change", function () {
 });
 
 buttonSearch.addEventListener("click", function () {
-  elements.style.display = "block";
 
   const city = cityDropdown.options[cityDropdown.selectedIndex].text;
   const iso = stateDropdown.options[stateDropdown.selectedIndex].id;
@@ -121,6 +120,9 @@ buttonSearch.addEventListener("click", function () {
         data.wind.speed,
         3.6
       );
+
+      elements.style.display = "block";
+
     })
     .catch((err) => {
         window.location.href = "404.html"
