@@ -40,12 +40,11 @@ body,
   border-color: var(--border-color);
 }
 body,
-.navTitle,
 .card-body,
 #cityNavBar {
   color: var(--text-color);
 }
-.navTitle,
+#cityNavBar,
 .temperature,
 #toggleIcon:before {
   font-size: 1.3rem;
@@ -58,14 +57,17 @@ body,
 }
 .btnCity,
 .btnState {
-  width: 200px;
+  max-width: 150px;
 }
 #allElements {
   display: none;
 }
 .brazilFlag {
-  width: 40px;
-  height: 36px;
+  width: 36px;
+  height: 32px;
+}
+#cityNavBar{
+  vertical-align: middle;
 }
 .toggleModeBtn {
   border: none;
@@ -78,7 +80,7 @@ body,
 }
 .title {
   font-size: 2.5rem;
-  line-height: 8vh;
+  line-height: 45px;
 }
 .squares {
   max-width: 620px;

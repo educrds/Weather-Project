@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="public/imgs/favicon.png">
+    <link rel="icon" type="image/x-icon" href="public/imgs/favicon.png" />
     <title>Weather</title>
 
     <link
@@ -20,31 +20,11 @@
     <link rel="stylesheet" href="public/css/style.css" />
   </head>
   <body>
-    <div class="container-fluid align-items-center" style="user-select: auto">
-      <header
-        class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between border-bottom"
-        style="user-select: auto"
-      >
-        <svg
-          class="bi me-2 d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark"
-          width="40"
-          height="32"
-          role="img"
-          style="user-select: auto"
-        ></svg>
-
-        <ul
-          class="col-12 col-md-auto mb-2 mb-md-0 nav navTitle"
-          style="user-select: auto"
-        >
-        <img class="pe-1 brazilFlag" src="public/imgs/brazil.png" />
-          <li style="user-select: auto" id="cityNavBar">
-             Previsão do
-            tempo
-          </li>
-        </ul>
-
-        <div class="col-md-3 text-end" style="user-select: auto">
+    <div class="text-center border-bottom pt-1 pb-2" style="user-select: auto">
+      <img class="pe-1 brazilFlag" src="public/imgs/brazil.png" />
+      <span id="cityNavBar">Previsão do tempo</span>
+      <div class="dropdown float-end">
+        <div class="text-end" style="user-select: auto">
           <button
             type="button"
             class="btn toggleModeBtn"
@@ -54,7 +34,7 @@
             <div id="toggleIcon"></div>
           </button>
         </div>
-      </header>
+      </div>
     </div>
     <div class="conteiner my-4 text-center">
       <div class="btn-group p-1">
@@ -84,99 +64,97 @@
       </button>
     </div>
 
-<div id="allElements">
-    <div class="conteiner text-center">
-      <div id="weekDay" class="title"></div>
-      <div id="title2ndLine" class="title">
-        <span id="description"></span>
-        <span id="city"></span>
+    <div id="allElements">
+      <div class="conteiner text-center">
+        <div id="weekDay" class="title"></div>
+        <div id="title2ndLine" class="title">
+          <span id="description"></span>
+          <span id="city"></span>
+        </div>
       </div>
-    </div>
-    <div class="conteiner text-center">
-      <img
-        id="weatherImg"
-        src="https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/cloudy.svg"
-        width="150px"
-        height="150px"
-      />
-      <img
-        id="404Img"
-        src=""
-        width="50%"
-      />
-    </div>
+      <div class="conteiner text-center">
+        <img
+          id="weatherImg"
+          src="https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/cloudy.svg"
+          width="150px"
+          height="150px"
+        />
+        <img id="404Img" src="" width="50%" />
+      </div>
 
-    <div class="conteiner squares">
-      <div class="row">
-        <div class="col">
-          <div class="card h-100">
-            <div class="card-body">
-              <div class="cardTitle text-center">
-                <span id="temp"></span><span class="fs-3">°C</span>
-              </div>
-              <div class="container mt-2"> 
-                <div class="row text-center">
-                  <div class="col">
-                    Min
-                    <div>
-                      <img
-                        src="https://img.icons8.com/ultraviolet/30/000000/thermometer.png"
-                      />
-                      <span id="tempMin" class="temperature"></span
-                      ><span class="fs-5">°C</span>
+      <div class="conteiner squares">
+        <div class="row">
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="cardTitle text-center">
+                  <span id="temp"></span><span class="fs-3">°C</span>
+                </div>
+                <div class="container mt-2">
+                  <div class="row text-center">
+                    <div class="col">
+                      Min
+                      <div>
+                        <img
+                          src="https://img.icons8.com/ultraviolet/30/000000/thermometer.png"
+                        />
+                        <span id="tempMin" class="temperature"></span
+                        ><span class="fs-5">°C</span>
+                      </div>
                     </div>
-                  </div>
-                  <div class="col">
-                    Max
-                    <div>
-                      <img
-                        src="https://img.icons8.com/office/30/000000/thermometer.png"
-                      />
-                      <span id="tempMax" class="temperature"></span
-                      ><span class="fs-5">°C</span>
+                    <div class="col">
+                      Max
+                      <div>
+                        <img
+                          src="https://img.icons8.com/office/30/000000/thermometer.png"
+                        />
+                        <span id="tempMax" class="temperature"></span
+                        ><span class="fs-5">°C</span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col">
-          <div class="card h-100">
-            <div class="card-body">
-              <div class="d-flex align-items-center justify-content-center">
-                <img
-                  class="pe-3"
-                  src="https://img.icons8.com/ultraviolet/32/1A1A1A/wet.png"
-                />
-                <div class="w-50">
-                  <div class="d-flex align-items-center">Umidade</div>
-                  <span
-                    id="humidity"
-                    class="temperature"
-                    style="user-select: auto"
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="d-flex align-items-center justify-content-center">
+                  <img
+                    class="pe-3"
+                    src="https://img.icons8.com/ultraviolet/32/1A1A1A/wet.png"
+                  />
+                  <div class="w-50">
+                    <div class="d-flex align-items-center">Umidade</div>
+                    <span
+                      id="humidity"
+                      class="temperature"
+                      style="user-select: auto"
                     >
-                  </span>
+                    </span>
 
-                  <span class="fs-5">%</span>
+                    <span class="fs-5">%</span>
+                  </div>
                 </div>
-              </div>
-              <div
-                class="d-flex align-items-center justify-content-center mt-3"
-              >
-                <img
-                  class="pe-3"
-                  src="https://img.icons8.com/ultraviolet/32/1A1A1A/wind--v1.png"
-                />
-                <div class="w-50">
-                  <div class="d-flex align-items-center">Velocidade vento</div>
-                  <span
-                    id="windSpeed"
-                    class="temperature"
-                    style="user-select: auto"
-                    ></span
-                  >
-                  <span class="fs-5">km/h</span>
+                <div
+                  class="d-flex align-items-center justify-content-center mt-3"
+                >
+                  <img
+                    class="pe-3"
+                    src="https://img.icons8.com/ultraviolet/32/1A1A1A/wind--v1.png"
+                  />
+                  <div class="w-50">
+                    <div class="d-flex align-items-center">
+                      Velocidade vento
+                    </div>
+                    <span
+                      id="windSpeed"
+                      class="temperature"
+                      style="user-select: auto"
+                    ></span>
+                    <span class="fs-5">km/h</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -184,7 +162,6 @@
         </div>
       </div>
     </div>
-</div>
     <script src="public/js/script.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script
