@@ -73,8 +73,10 @@ body,
   width: 1vw;
 }
 #search-button:hover {
-  background-color: var(--text-color);
-  color: var(--bg-body);
+  color: var(--text-color);
+  border-color: var(--text-color);
+  transition: none;
+  transition-delay: 0s;
 }
 .brazilFlag {
   width: 36px;
