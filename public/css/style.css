@@ -23,6 +23,7 @@ body {
 }
 body,
 .card,
+.navBar,
 .card-body,
 #cityNavBar,
 #city-dropdown,
@@ -62,15 +63,8 @@ body,
 #allElements {
   display: none;
 }
-.brazilFlag {
-  width: 36px;
-  height: 32px;
-}
-#cityNavBar{
+#cityNavBar {
   vertical-align: middle;
-}
-.toggleModeBtn {
-  border: none;
 }
 #toggleIcon:before {
   font-family: fontAwesome;
@@ -78,9 +72,23 @@ body,
   color: #636872;
   width: 1vw;
 }
+#search-button:hover {
+  background-color: var(--text-color);
+  color: var(--bg-body);
+}
+.brazilFlag {
+  width: 36px;
+  height: 32px;
+}
+.toggleModeBtn {
+  border: none;
+}
 .title {
   font-size: 2.5rem;
   line-height: 45px;
+}
+.navBar {
+  border-bottom: 1px solid var(--border-color);
 }
 .squares {
   max-width: 620px;
@@ -93,9 +101,17 @@ body,
 .cardTitle {
   font-size: 3.5rem;
 }
-#search-button:hover {
-  background-color: var(--text-color);
-  color: var(--bg-body);
+/* ---------------------- XS Devices ---------------------- */
+@media (max-width: 576px) {
+  .squares {
+    max-width: 350px;
+    padding: 10px;
+    margin: 0 auto;
+  }
+  .title {
+    font-size: 2rem;
+    line-height: 35px;
+  }
 }
 /* ----------------------404 Page---------------------- */
 #title404 {
@@ -103,3 +119,4 @@ body,
   line-height: 3rem;
   font-weight: 500;
 }
+
