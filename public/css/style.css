@@ -118,7 +118,9 @@ body,
 /* ----------------------404 Page---------------------- */
 #title404 {
   font-size: 3rem;
-  line-height: 3rem;
-  font-weight: 500;
+  line-height: 50px;
+  font-weight: 800;
 }
-
+#img404{
+  max-width: 100%;
+}
