@@ -1,134 +1,123 @@
-const stateDropdown = document.getElementById("state-dropdown");
-const cityDropdown = document.getElementById("city-dropdown");
-const buttonSearch = document.getElementById("search-button");
-const toggle = document.getElementById("toggle");
+import { apiKey, requestOptions } from '../../assets/setupApi.js';
 
-const elements = document.getElementById("allElements");
-const API = "d63bfabd0c861ed3e5d836ba9c75e4ba";
+// Search Elements
+const stateDropdown = document.getElementById('state-dropdown');
+const cityDropdown = document.getElementById('city-dropdown');
+const buttonSearch = document.getElementById('search-button');
+const cityNavBar = document.getElementById('cityNavBar');
+const cityText = document.getElementById('city');
 
-//   ------------------------ API COUNTRIES HEADER ---------------------------------
-var headers = new Headers();
-headers.append(
-  "X-CSCAPI-KEY",
-  "dWRXTUFMcGFveUg5U1llZGE3VUxQZTNadjJnczlUMTNMaG5YSnVyeQ=="
-);
+// Weather Infos
+const elements = document.getElementById('allElements');
+const weatherDescription = document.getElementById('description');
+const weatherImg = document.getElementById('weatherImg');
+const weatherTemp = document.getElementById('temp');
+const weatherMin = document.getElementById('tempMin');
+const weatherMax = document.getElementById('tempMax');
+const weatherHumidity = document.getElementById('humidity');
+const weatherWindSpeed = document.getElementById('windSpeed');
+const weekDayText = document.getElementById('weekDay');
 
-var requestOptions = {
-  method: "GET",
-  headers: headers,
-  redirect: "follow",
-};
+// Theme Button
+const themeButton = document.getElementById('toggle');
 
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-//   ------------------------  EVENTO DE CARREGAMENTO DA PÁGINA ------------------
-document.addEventListener("DOMContentLoaded", () => {
-  let option;
+// Country API Url
+const countryApiURL = 'https://api.countrystatecity.in/v1/countries/BR/states';
 
-  var day = new Date().toLocaleDateString("pt-br", {
-    weekday: "long",
-  });
-  document.getElementById("weekDay").innerHTML =
-    capitalizeFirstLetter(day) + ",";
+// Week Day First Letter
+const capitalizeFirstLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
-  //   ------------------------ API COUNTRIES(STATES) ---------------------------------
-  fetch(
-    "https://api.countrystatecity.in/v1/countries/BR/states",
-    requestOptions
-  )
-    .then((response) => response.text())
-    .then((result) =>
-      JSON.parse(result).map((item) => {
-        option = document.createElement("option");
-        option.setAttribute("id", item.iso2);
-        option.text = item.name;
-        stateDropdown.add(option);
-      })
-    )
-    .catch((error) => console.log("error", error));
+const day = new Date().toLocaleDateString('pt-br', {
+  weekday: 'long',
 });
 
-//   ------------------------ EVENTO AO ALTERAR PAIS ---------------------------------
-stateDropdown.addEventListener("change", function () {
+// Events
+themeButton.addEventListener('click', changeTheme);
+buttonSearch.addEventListener('click', searchWeather);
+stateDropdown.addEventListener('change', handleCityChange);
+
+// Populate STATES
+fetch(countryApiURL, requestOptions)
+  .then((response) => response.json())
+  .then((result) => populateStates(result))
+  .catch((error) => console.log(error));
+
+function populateStates(list) {
+  const states = list.map(({ iso2, name }) => {
+    return `<option id="${iso2}">${name}</option>`;
+  });
+  const statesList = states.join('<option disabled selected hidden>Estado</option>');
+  stateDropdown.innerHTML = statesList;
+}
+
+// Populate CITIES
+function handleCityChange() {
+  const defaultOption = document.createElement('option');
+  defaultOption.text = 'Cidade';
+
   const iso = stateDropdown.options[stateDropdown.selectedIndex].id;
 
   cityDropdown.length = 0;
-
-  let defaultOption = document.createElement("option");
-  defaultOption.text = "Cidade";
-
   cityDropdown.add(defaultOption);
   cityDropdown.selectedIndex = 0;
 
-  //   ------------------------ API COUNTRIES(CITIES) ---------------------------------
   fetch(
     `https://api.countrystatecity.in/v1/countries/BR/states/${iso}/cities`,
     requestOptions
   )
-    .then((response) => response.text())
-    .then((result) =>
-      JSON.parse(result).map((item) => {
-        option = document.createElement("option");
-        option.text = item.name;
-        cityDropdown.add(option);
-      })
-    )
-    .catch((error) => console.log("error", error));
-});
+    .then((response) => response.json())
+    .then((result) => populateCities(result))
+    .catch((error) => console.log(error));
+}
 
-buttonSearch.addEventListener("click", function () {
+function populateCities(list) {
+  const cities = list.map(({ name }) => {
+    return `<option id="${name}">${name}</option>`;
+  });
+  const citiesList = cities.join('<option disabled selected hidden>Estado</option>');
+  cityDropdown.innerHTML = citiesList;
+}
 
+// Fetch Weather by City
+function searchWeather() {
   const city = cityDropdown.options[cityDropdown.selectedIndex].text;
   const iso = stateDropdown.options[stateDropdown.selectedIndex].id;
 
-  document.getElementById("cityNavBar").innerHTML = `${city}-${iso}`;
-  document.getElementById("city").innerHTML = city;
+  weekDayText.innerHTML = capitalizeFirstLetter(day);
+  cityNavBar.textContent = `${city}-${iso}`;
+  cityText.textContent = city;
 
-  //   ------------------------ API WEATHER ---------------------------------
   fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API}&units=metric&lang=pt_br`
+    `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=pt_br`
   )
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
+    .then((res) => res.json())
+    .then((data) => handleWeather(data))
+    .catch(() => (window.location.href = '404.html'));
+}
 
-      document.getElementById(
-        "description"
-      ).innerHTML = `${data.weather[0].description} em`;
+function handleWeather(data) {
+  const { description, icon } = data.weather[0];
+  const { temp, temp_min, temp_max, humidity } = data.main;
+  const { speed } = data.wind;
 
-      document.getElementById(
-        "weatherImg"
-      ).src = `public/imgs/${data.weather[0].icon}.svg`;
+  // Round Values
+  const tempValue = Math.round(temp);
+  const tempMin = Math.round(temp_min);
+  const tempMax = Math.round(temp_max);
+  const humidityValue = Math.round(humidity);
 
-      document.getElementById("temp").innerHTML = Math.round(data.main.temp);
+  weatherImg.src = `public/imgs/${icon}.svg`;
+  weatherDescription.textContent = `${description} em`;
+  weatherTemp.textContent = tempValue;
+  weatherMin.textContent = tempMin;
+  weatherMax.textContent = tempMax;
+  weatherHumidity.textContent = humidityValue;
+  weatherWindSpeed.textContent = Math.imul(speed, 3.6);
 
-      document.getElementById("tempMin").innerHTML = Math.round(
-        data.main.temp_min
-      );
+  elements.style.display = 'block';
+}
 
-      document.getElementById("tempMax").innerHTML = Math.round(
-        data.main.temp_max
-      );
-
-      document.getElementById("humidity").innerHTML = Math.round(
-        data.main.humidity
-      );
-
-      document.getElementById("windSpeed").innerHTML = Math.imul(
-        data.wind.speed,
-        3.6
-      );
-
-      elements.style.display = "block";
-
-    })
-    .catch((err) => {
-        window.location.href = "404.html"
-    });
-});
-
-toggle.addEventListener("click", () => {
-  document.documentElement.classList.toggle("dark-mode");
-});
+// Change Theme Mode
+function changeTheme() {
+  document.documentElement.classList.toggle('dark-mode');
+}
