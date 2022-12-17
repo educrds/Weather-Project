@@ -6,6 +6,7 @@ const cityDropdown = document.getElementById('city-dropdown');
 const buttonSearch = document.getElementById('search-button');
 const cityNavBar = document.getElementById('cityNavBar');
 const cityText = document.getElementById('city');
+const spinnerLoad = document.querySelector('.spinner-border');
 
 // Weather Infos
 const elements = document.getElementById('allElements');
@@ -50,32 +51,38 @@ function populateStates(list) {
   stateDropdown.innerHTML = statesList;
 }
 
+function populateCities(list) {
+  const cities = list.map(({ name }) => {
+    return `<option id="${name}">${name}</option>`;
+  });
+  const citiesList = cities.join('<option disabled selected hidden>Cidade</option>');
+  cityDropdown.innerHTML = citiesList;
+}
+
 // Populate CITIES
 function handleCityChange() {
+  cityDropdown.style.display = 'none';
+  spinnerLoad.style.display = 'block';
   const defaultOption = document.createElement('option');
   defaultOption.text = 'Cidade';
 
-  const iso = stateDropdown.options[stateDropdown.selectedIndex].id;
+  const stateISO = stateDropdown.options[stateDropdown.selectedIndex].id;
 
   cityDropdown.length = 0;
   cityDropdown.add(defaultOption);
   cityDropdown.selectedIndex = 0;
 
   fetch(
-    `https://api.countrystatecity.in/v1/countries/BR/states/${iso}/cities`,
+    `https://api.countrystatecity.in/v1/countries/BR/states/${stateISO}/cities`,
     requestOptions
   )
     .then((response) => response.json())
-    .then((result) => populateCities(result))
+    .then((result) => {
+      populateCities(result);
+      spinnerLoad.style.display = 'none';
+      cityDropdown.style.display = 'block';
+    })
     .catch((error) => console.log(error));
-}
-
-function populateCities(list) {
-  const cities = list.map(({ name }) => {
-    return `<option id="${name}">${name}</option>`;
-  });
-  const citiesList = cities.join('<option disabled selected hidden>Estado</option>');
-  cityDropdown.innerHTML = citiesList;
 }
 
 // Fetch Weather by City
