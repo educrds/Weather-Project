@@ -78,9 +78,8 @@ body,
   transition: none;
   transition-delay: 0s;
 }
-.brazilFlag {
+#flag {
   width: 36px;
-  height: 32px;
 }
 .toggleModeBtn {
   border: none;

@@ -5,8 +5,8 @@ const stateDropdown = document.getElementById('state-dropdown');
 const cityDropdown = document.getElementById('city-dropdown');
 const buttonSearch = document.getElementById('search-button');
 const cityNavBar = document.getElementById('cityNavBar');
-const cityText = document.getElementById('city');
 const spinnerLoad = document.querySelector('.spinner-border');
+const flag = document.getElementById('flag');
 
 // Weather Infos
 const elements = document.getElementById('allElements');
@@ -64,8 +64,6 @@ function populateCities(list) {
 }
 
 function handleCityChange() {
-  cityDropdown.style.display = 'none';
-  spinnerLoad.style.display = 'block';
   const defaultOption = document.createElement('option');
   defaultOption.text = 'Cidade';
 
@@ -74,6 +72,9 @@ function handleCityChange() {
   cityDropdown.length = 0;
   cityDropdown.add(defaultOption);
   cityDropdown.selectedIndex = 0;
+
+  cityDropdown.style.display = 'none';
+  spinnerLoad.style.display = 'block';
 
   // fetch API city
   fetch(
@@ -90,6 +91,13 @@ function searchWeather() {
   const city = cityDropdown.options[cityDropdown.selectedIndex].text;
   const iso = stateDropdown.options[stateDropdown.selectedIndex].id;
 
+  const stateName = stateDropdown.options[stateDropdown.selectedIndex].text;
+  const stateFlagName = stateName
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/\s+/g, '-')
+    .toLowerCase();
+
   weekDayText.innerHTML = capitalizeFirstLetter(day);
   cityNavBar.textContent = `${city}-${iso}`;
 
@@ -99,6 +107,8 @@ function searchWeather() {
     .then((res) => res.json())
     .then((data) => handleWeather(data))
     .catch(() => (window.location.href = '404.html'));
+
+  flag.src = `public/imgs/state-flags/${stateFlagName}.svg`;
 }
 
 function handleWeather(data) {
@@ -113,7 +123,7 @@ function handleWeather(data) {
   const humidityValue = Math.round(humidity);
 
   // Insert values
-  weatherImg.src = `public/imgs/${icon}.svg`;
+  weatherImg.src = `public/imgs/weather-icons/${icon}.svg`;
   weatherDescription.textContent = `${capitalizeFirstLetter(description)} em ${
     data.name
   }.`;
