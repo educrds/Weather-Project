@@ -37,12 +37,13 @@ themeButton.addEventListener('click', changeTheme);
 buttonSearch.addEventListener('click', searchWeather);
 stateDropdown.addEventListener('change', handleCityChange);
 
-// Populate STATES
+// fetch API country
 fetch(countryApiURL, requestOptions)
   .then((response) => response.json())
   .then((result) => populateStates(result))
   .catch((error) => console.log(error));
 
+// Populate state dropdown
 function populateStates(list) {
   const states = list.map(({ iso2, name }) => {
     return `<option id="${iso2}">${name}</option>`;
@@ -51,15 +52,17 @@ function populateStates(list) {
   stateDropdown.innerHTML = statesList;
 }
 
+// Populate cities dropdown
 function populateCities(list) {
   const cities = list.map(({ name }) => {
     return `<option id="${name}">${name}</option>`;
   });
   const citiesList = cities.join('<option disabled selected hidden>Cidade</option>');
   cityDropdown.innerHTML = citiesList;
+  spinnerLoad.style.display = 'none';
+  cityDropdown.style.display = 'block';
 }
 
-// Populate CITIES
 function handleCityChange() {
   cityDropdown.style.display = 'none';
   spinnerLoad.style.display = 'block';
@@ -72,16 +75,13 @@ function handleCityChange() {
   cityDropdown.add(defaultOption);
   cityDropdown.selectedIndex = 0;
 
+  // fetch API city
   fetch(
     `https://api.countrystatecity.in/v1/countries/BR/states/${stateISO}/cities`,
     requestOptions
   )
     .then((response) => response.json())
-    .then((result) => {
-      populateCities(result);
-      spinnerLoad.style.display = 'none';
-      cityDropdown.style.display = 'block';
-    })
+    .then((result) => populateCities(result))
     .catch((error) => console.log(error));
 }
 
@@ -92,7 +92,6 @@ function searchWeather() {
 
   weekDayText.innerHTML = capitalizeFirstLetter(day);
   cityNavBar.textContent = `${city}-${iso}`;
-  cityText.textContent = city;
 
   fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=pt_br`
@@ -113,8 +112,11 @@ function handleWeather(data) {
   const tempMax = Math.round(temp_max);
   const humidityValue = Math.round(humidity);
 
+  // Insert values
   weatherImg.src = `public/imgs/${icon}.svg`;
-  weatherDescription.textContent = `${description} em`;
+  weatherDescription.textContent = `${capitalizeFirstLetter(description)} em ${
+    data.name
+  }.`;
   weatherTemp.textContent = tempValue;
   weatherMin.textContent = tempMin;
   weatherMax.textContent = tempMax;
