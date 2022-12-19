@@ -37,11 +37,17 @@ themeButton.addEventListener('click', changeTheme);
 buttonSearch.addEventListener('click', searchWeather);
 stateDropdown.addEventListener('change', handleCityChange);
 
-// fetch API country
-fetch(countryApiURL, requestOptions)
-  .then((response) => response.json())
-  .then((result) => populateStates(result))
-  .catch((error) => console.log(error));
+// fetching API data 
+const getResponse = async (url, populateDropdown) => {
+  const response = await fetch(url, requestOptions);
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  const data = await response.json();
+  populateDropdown(data);
+};
+
+getResponse(countryApiURL, populateStates);
 
 // Populate state dropdown
 function populateStates(list) {
@@ -68,6 +74,7 @@ function handleCityChange() {
   defaultOption.text = 'Cidade';
 
   const stateISO = stateDropdown.options[stateDropdown.selectedIndex].id;
+  const cityAPI = `https://api.countrystatecity.in/v1/countries/BR/states/${stateISO}/cities`;
 
   cityDropdown.length = 0;
   cityDropdown.add(defaultOption);
@@ -76,14 +83,7 @@ function handleCityChange() {
   cityDropdown.style.display = 'none';
   spinnerLoad.style.display = 'block';
 
-  // fetch API city
-  fetch(
-    `https://api.countrystatecity.in/v1/countries/BR/states/${stateISO}/cities`,
-    requestOptions
-  )
-    .then((response) => response.json())
-    .then((result) => populateCities(result))
-    .catch((error) => console.log(error));
+  getResponse(cityAPI, populateCities);
 }
 
 // Fetch Weather by City
