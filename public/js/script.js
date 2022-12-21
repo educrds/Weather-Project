@@ -37,37 +37,22 @@ themeButton.addEventListener('click', changeTheme);
 buttonSearch.addEventListener('click', searchWeather);
 stateDropdown.addEventListener('change', handleCityChange);
 
-// fetching API data 
-const getResponse = async (url, populateDropdown) => {
+// fetching API data
+const getResponse = async (url, next) => {
   const response = await fetch(url, requestOptions);
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
+  !response.ok && console.log(`HTTP error! status: ${response.status}`);
   const data = await response.json();
-  populateDropdown(data);
+  next(data);
 };
 
-getResponse(countryApiURL, populateStates);
-
 // Populate state dropdown
-function populateStates(list) {
-  const states = list.map(({ iso2, name }) => {
+getResponse(countryApiURL, (data) => {
+  const states = data.map(({ iso2, name }) => {
     return `<option id="${iso2}">${name}</option>`;
   });
   const statesList = states.join('<option disabled selected hidden>Estado</option>');
   stateDropdown.innerHTML = statesList;
-}
-
-// Populate cities dropdown
-function populateCities(list) {
-  const cities = list.map(({ name }) => {
-    return `<option id="${name}">${name}</option>`;
-  });
-  const citiesList = cities.join('<option disabled selected hidden>Cidade</option>');
-  cityDropdown.innerHTML = citiesList;
-  spinnerLoad.style.display = 'none';
-  cityDropdown.style.display = 'block';
-}
+});
 
 function handleCityChange() {
   const defaultOption = document.createElement('option');
@@ -79,11 +64,22 @@ function handleCityChange() {
   cityDropdown.length = 0;
   cityDropdown.add(defaultOption);
   cityDropdown.selectedIndex = 0;
-
   cityDropdown.style.display = 'none';
+  
   spinnerLoad.style.display = 'block';
 
-  getResponse(cityAPI, populateCities);
+  // Populate cities dropdown
+  getResponse(cityAPI, (data) => {
+    const cities = data.map(({ name }) => {
+      return `<option id="${name}">${name}</option>`;
+    });
+    const citiesList = cities.join(
+      '<option disabled selected hidden>Cidade</option>'
+    );
+    cityDropdown.innerHTML = citiesList;
+    spinnerLoad.style.display = 'none';
+    cityDropdown.style.display = 'block';
+  });
 }
 
 // Fetch Weather by City
