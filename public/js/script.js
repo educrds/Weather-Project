@@ -5,7 +5,6 @@ const stateDropdown = document.getElementById('state-dropdown');
 const cityDropdown = document.getElementById('city-dropdown');
 const buttonSearch = document.getElementById('search-button');
 const cityNavBar = document.getElementById('cityNavBar');
-const spinnerLoad = document.querySelector('.spinner-border');
 const flag = document.getElementById('flag');
 
 // Weather Infos
