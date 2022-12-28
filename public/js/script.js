@@ -35,7 +35,7 @@ const day = new Date().toLocaleDateString('pt-br', {
 // Events
 themeButton.addEventListener('click', changeTheme);
 buttonSearch.addEventListener('click', searchWeather);
-stateDropdown.addEventListener('change', handleCityChange);
+stateDropdown.addEventListener('change', handleStateChange);
 
 // fetching API data
 const getResponse = async (url, next) => {
@@ -45,6 +45,9 @@ const getResponse = async (url, next) => {
   next(data);
 };
 
+stateDropdown.style.display = 'none';
+stateDropdown.previousElementSibling.style.display = 'block';
+
 // Populate state dropdown
 getResponse(countryApiURL, (data) => {
   const states = data.map(({ iso2, name }) => {
@@ -52,9 +55,12 @@ getResponse(countryApiURL, (data) => {
   });
   const statesList = states.join('<option disabled selected hidden>Estado</option>');
   stateDropdown.innerHTML = statesList;
+
+  stateDropdown.previousElementSibling.style.display = 'none';
+  stateDropdown.style.display = 'block';
 });
 
-function handleCityChange() {
+function handleStateChange() {
   const defaultOption = document.createElement('option');
   defaultOption.text = 'Cidade';
 
@@ -65,8 +71,8 @@ function handleCityChange() {
   cityDropdown.add(defaultOption);
   cityDropdown.selectedIndex = 0;
   cityDropdown.style.display = 'none';
-  
-  spinnerLoad.style.display = 'block';
+
+  cityDropdown.previousElementSibling.style.display = 'block';
 
   // Populate cities dropdown
   getResponse(cityAPI, (data) => {
@@ -77,7 +83,7 @@ function handleCityChange() {
       '<option disabled selected hidden>Cidade</option>'
     );
     cityDropdown.innerHTML = citiesList;
-    spinnerLoad.style.display = 'none';
+    cityDropdown.previousElementSibling.style.display = 'none';
     cityDropdown.style.display = 'block';
   });
 }
