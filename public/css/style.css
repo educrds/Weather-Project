@@ -3,14 +3,14 @@
   --text-color: #fefefe;
   --bg-card: #212836;
   --border-color: #cfd4d91a;
-  --icon-toggle-mode: '\f185';
+  --icon-toggle-mode: url('../imgs/sun.png');
 }
 :root {
   --bg-body: #f5f5f5;
   --text-color: #001a5e;
   --bg-card: #ffffff;
   --border-color: #cfd4d9;
-  --icon-toggle-mode: '\f186';
+  --icon-toggle-mode: url('../imgs/moon.png');
 }
 @font-face {
   font-family: 'San Francisco';
@@ -67,17 +67,13 @@ body,
   vertical-align: middle;
 }
 #toggleIcon:before {
-  font-family: fontAwesome;
   content: var(--icon-toggle-mode);
-  color: #636872;
-  width: 1vw;
 }
 #search-button:hover {
   color: var(--text-color);
   border-color: var(--text-color);
-  transition: none;
-  transition-delay: 0s;
 }
+
 #flag {
   width: 36px;
 }
