@@ -92,10 +92,10 @@ body,
 #day-info,
 #weather-info-tag {
   font-weight: 200;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 #city-name {
-  font-size: 3.5rem;
+  font-size: 3rem;
   font-weight: 600;
   line-height: 5vh;
   letter-spacing: .5px;
@@ -112,7 +112,7 @@ body,
   border-bottom: 1px solid var(--border-color);
 }
 #weatherImg {
-  width: 200px;
+  width: 185px;
   filter: drop-shadow(rgba(0, 0, 0, 0.16) 0px 1px 4px);
 }
 .squares {
