@@ -6,35 +6,37 @@ const cityDropdown = document.getElementById('city-dropdown');
 const buttonSearch = document.getElementById('search-button');
 const cityNavBar = document.getElementById('cityNavBar');
 const flag = document.getElementById('flag');
-
 // Weather Infos
 const elements = document.getElementById('allElements');
-const weatherDescription = document.getElementById('description');
+const cityName = document.getElementById('city-name');
 const weatherImg = document.getElementById('weatherImg');
 const weatherTemp = document.getElementById('temp');
 const weatherMin = document.getElementById('tempMin');
 const weatherMax = document.getElementById('tempMax');
 const weatherHumidity = document.getElementById('humidity');
 const weatherWindSpeed = document.getElementById('windSpeed');
-const weekDayText = document.getElementById('weekDay');
-
+const dayText = document.getElementById('day-info');
+const weatherDescription = document.getElementById('weather-info-tag');
 // Theme Button
 const themeButton = document.getElementById('toggle');
 
 // Country API Url
 const countryApiURL = 'https://api.countrystatecity.in/v1/countries/BR/states';
 
-// Week Day First Letter
-const capitalizeFirstLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1);
-
-const day = new Date().toLocaleDateString('pt-br', {
-  weekday: 'long',
-});
-
 // Events
 themeButton.addEventListener('click', changeTheme);
 buttonSearch.addEventListener('click', searchWeather);
 stateDropdown.addEventListener('change', handleStateChange);
+
+// Week Day First Letter
+const capitalizeFirstLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+
+// Timestamps
+const date = new Date();
+const day = date.toLocaleDateString('pt-br', {
+  weekday: 'long',
+});
+const hour = date.getHours();
 
 // fetching API data
 const getResponse = async (url, next) => {
@@ -99,8 +101,9 @@ function searchWeather() {
     .replace(/\s+/g, '-')
     .toLowerCase();
 
-  weekDayText.innerHTML = capitalizeFirstLetter(day);
+  dayText.innerHTML = `${capitalizeFirstLetter(day)}, ${hour}h.`;
   cityNavBar.textContent = `${city}-${iso}`;
+  cityName.textContent = `${city}, ${iso}`;
 
   fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=pt_br`
@@ -125,14 +128,12 @@ function handleWeather(data) {
 
   // Insert values
   weatherImg.src = `public/imgs/weather-icons/${icon}.svg`;
-  weatherDescription.textContent = `${capitalizeFirstLetter(description)} em ${
-    data.name
-  }.`;
-  weatherTemp.textContent = tempValue;
-  weatherMin.textContent = tempMin;
-  weatherMax.textContent = tempMax;
-  weatherHumidity.textContent = humidityValue;
-  weatherWindSpeed.textContent = Math.imul(speed, 3.6);
+  weatherDescription.textContent = capitalizeFirstLetter(description);
+  weatherTemp.textContent = `${tempValue}°`;
+  weatherMin.textContent = `${tempMin}°`;
+  weatherMax.textContent = `${tempMax}°`;
+  weatherHumidity.textContent = `${humidityValue}%`;
+  weatherWindSpeed.textContent = `${Math.imul(speed, 3.6)} km/h`;
 
   elements.style.display = 'block';
 }

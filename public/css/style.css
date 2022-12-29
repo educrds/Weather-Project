@@ -28,7 +28,8 @@ body,
 #cityNavBar,
 #city-dropdown,
 #search-button,
-#state-dropdown {
+#state-dropdown,
+#weather-info-tag {
   transition: all 0.5s ease-in;
   transition-delay: 200ms;
 }
@@ -36,7 +37,7 @@ body,
 #city-dropdown,
 #search-button,
 #state-dropdown {
-  color: #636872;
+  color: #81848a;
   background-color: var(--bg-card);
   border-color: var(--border-color);
 }
@@ -45,8 +46,8 @@ body,
 #cityNavBar {
   color: var(--text-color);
 }
-#cityNavBar,
 .temperature,
+#cityNavBar,
 #toggleIcon:before {
   font-size: 1.3rem;
 }
@@ -86,10 +87,33 @@ body,
 }
 .title {
   font-size: 2.5rem;
-  line-height: 45px;
+}
+
+#day-info,
+#weather-info-tag {
+  font-weight: 200;
+  font-size: 1.5rem;
+}
+#city-name {
+  font-size: 3.5rem;
+  font-weight: 600;
+  line-height: 5vh;
+  letter-spacing: .5px;
+}
+#weather-info-tag {
+  width: max-content;
+  margin: auto;
+  padding: 0 1vw;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 30px;
 }
 .navBar {
   border-bottom: 1px solid var(--border-color);
+}
+#weatherImg {
+  width: 200px;
+  filter: drop-shadow(rgba(0, 0, 0, 0.16) 0px 1px 4px);
 }
 .squares {
   max-width: 620px;
