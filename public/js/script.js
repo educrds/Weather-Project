@@ -61,7 +61,7 @@ getResponse(countryApiURL, data => {
   stateDropdown.style.display = 'block';
 });
 
-const handleStateChange = () => {
+function handleStateChange() {
   const defaultOption = document.createElement('option');
   defaultOption.text = 'Cidade';
 
@@ -85,10 +85,10 @@ const handleStateChange = () => {
     cityDropdown.previousElementSibling.style.display = 'none';
     cityDropdown.style.display = 'block';
   });
-};
+}
 
 // Fetch Weather by City
-const searchWeather = () => {
+function searchWeather() {
   const city = cityDropdown.options[cityDropdown.selectedIndex].text;
   const iso = stateDropdown.options[stateDropdown.selectedIndex].id;
 
@@ -100,8 +100,8 @@ const searchWeather = () => {
     .toLowerCase();
 
   dayText.innerHTML = `${capitalizeFirstLetter(day)}, ${hour}h.`;
-  cityNavBar.textContent = `${city}-${iso}`;
-  cityName.textContent = `${city}, ${iso}`;
+  cityNavBar.innerText = `${city}-${iso}`;
+  cityName.innerText = `${city}, ${iso}`;
 
   fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=pt_br`
@@ -111,7 +111,7 @@ const searchWeather = () => {
     .catch(() => (window.location.href = '404.html'));
 
   flag.src = `public/imgs/state-flags/${stateFlagName}.svg`;
-};
+}
 
 function handleWeather(data) {
   const { description, icon } = data.weather[0];
@@ -126,12 +126,12 @@ function handleWeather(data) {
 
   // Insert values
   weatherImg.src = `public/imgs/weather-icons/${icon}.svg`;
-  weatherDescription.textContent = capitalizeFirstLetter(description);
-  weatherTemp.textContent = `${tempValue}°`;
-  weatherMin.textContent = `${tempMin}°`;
-  weatherMax.textContent = `${tempMax}°`;
-  weatherHumidity.textContent = `${humidityValue}%`;
-  weatherWindSpeed.textContent = `${Math.imul(speed, 3.6)} km/h`;
+  weatherDescription.innerText = capitalizeFirstLetter(description);
+  weatherTemp.innerText = `${tempValue}°`;
+  weatherMin.innerText = `${tempMin}°`;
+  weatherMax.innerText = `${tempMax}°`;
+  weatherHumidity.innerText = `${humidityValue}%`;
+  weatherWindSpeed.innerText = `${Math.imul(speed, 3.6)} km/h`;
 
   elements.style.display = 'block';
 }
