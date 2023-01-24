@@ -29,7 +29,7 @@ buttonSearch.addEventListener('click', searchWeather);
 stateDropdown.addEventListener('change', handleStateChange);
 
 // Week Day First Letter
-const capitalizeFirstLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+const capitalizeFirstLetter = str => `${str.charAt(0).toUpperCase()}${str.slice(1)}`;
 
 // Timestamps
 const date = new Date();
@@ -50,7 +50,7 @@ stateDropdown.style.display = 'none';
 stateDropdown.previousElementSibling.style.display = 'block';
 
 // Populate state dropdown
-getResponse(countryApiURL, (data) => {
+getResponse(countryApiURL, data => {
   const states = data.map(({ iso2, name }) => {
     return `<option id="${iso2}">${name}</option>`;
   });
@@ -61,7 +61,7 @@ getResponse(countryApiURL, (data) => {
   stateDropdown.style.display = 'block';
 });
 
-function handleStateChange() {
+const handleStateChange = () => {
   const defaultOption = document.createElement('option');
   defaultOption.text = 'Cidade';
 
@@ -76,21 +76,19 @@ function handleStateChange() {
   cityDropdown.previousElementSibling.style.display = 'block';
 
   // Populate cities dropdown
-  getResponse(cityAPI, (data) => {
+  getResponse(cityAPI, data => {
     const cities = data.map(({ name }) => {
       return `<option id="${name}">${name}</option>`;
     });
-    const citiesList = cities.join(
-      '<option disabled selected hidden>Cidade</option>'
-    );
+    const citiesList = cities.join('<option disabled selected hidden>Cidade</option>');
     cityDropdown.innerHTML = citiesList;
     cityDropdown.previousElementSibling.style.display = 'none';
     cityDropdown.style.display = 'block';
   });
-}
+};
 
 // Fetch Weather by City
-function searchWeather() {
+const searchWeather = () => {
   const city = cityDropdown.options[cityDropdown.selectedIndex].text;
   const iso = stateDropdown.options[stateDropdown.selectedIndex].id;
 
@@ -108,12 +106,12 @@ function searchWeather() {
   fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=pt_br`
   )
-    .then((res) => res.json())
-    .then((data) => handleWeather(data))
+    .then(res => res.json())
+    .then(data => handleWeather(data))
     .catch(() => (window.location.href = '404.html'));
 
   flag.src = `public/imgs/state-flags/${stateFlagName}.svg`;
-}
+};
 
 function handleWeather(data) {
   const { description, icon } = data.weather[0];
