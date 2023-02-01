@@ -1,7 +1,7 @@
+import { useState } from 'react';
 import { Nav } from './style';
 import { BsMoonFill, BsSun } from 'react-icons/bs';
-import { useState } from 'react';
-import { light, dark } from '../../styles/globalStyle';
+import { light, dark } from '../../styles/theme';
 
 function useTheme() {
   const [theme, setTheme] = useState(light);
@@ -13,13 +13,11 @@ function useTheme() {
   return [theme, toggleTheme];
 }
 
-const Navbar = ({onClick}) => {
+const Navbar = ({ onClick, theme }) => {
   return (
     <Nav>
       Previsão do tempo
-      <button onClick={onClick}>
-        <BsSun />
-      </button>
+      <button onClick={onClick}>{theme === light ? <BsMoonFill /> : <BsSun />}</button>
     </Nav>
   );
 };

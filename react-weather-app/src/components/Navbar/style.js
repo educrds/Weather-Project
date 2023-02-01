@@ -11,13 +11,15 @@ const Nav = styled.nav`
 
   button {
     position: absolute;
-    right: 0;
+    right: 10px;
     background: none;
     border: none;
     cursor: pointer;
   }
+
   button svg {
     font-size: 1.25rem;
+    color: ${props => props.theme.textColor};
   }
 `;
 
