@@ -1,6 +1,15 @@
-function App() {
+import { Navbar, useTheme } from './components/Navbar';
+import { GlobalStyle } from './styles/globalStyle';
 
-  return <h1>Ola</h1>;
+function App() {
+  const [theme, toggleTheme] = useTheme();
+
+  return (
+    <>
+      <GlobalStyle theme={theme} />
+      <Navbar onClick={toggleTheme} />
+    </>
+  );
 }
 
 export default App;
