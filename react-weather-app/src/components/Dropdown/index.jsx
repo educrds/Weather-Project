@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
-import { Container, SearchButton, Select } from './style';
+import React, { useEffect, useState } from 'react';
+import { Container, Button, Select } from './style';
 import { BiSearch } from 'react-icons/bi';
-import { useState } from 'react';
-import { geoData, weatherData } from '../../services/api';
+import fetchData from '../../services/api';
+import { geo, weather } from '../../services/configApi';
 
 const Dropdowns = () => {
   const [states, setStates] = useState([]);
@@ -11,25 +11,23 @@ const Dropdowns = () => {
   const [selectedCity, setSelectedCity] = useState('');
 
   useEffect(() => {
-    geoData('/').then(data => setStates(data));
+    fetchData('/', geo).then(data => setStates(data));
   }, []);
 
   const handleStateChange = e => {
     setCities([]);
     const stateISO = e.target.options[e.target.selectedIndex].id;
-    geoData(`/${stateISO}/cities`).then(data => setCities(data));
+    fetchData(`/${stateISO}/cities`, geo).then(data => setCities(data));
   };
 
   const handleCityChange = e => {
     setSelectedCity(e.target.value);
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    console.log('click');
-    const apiKey = 'd63bfabd0c861ed3e5d836ba9c75e4ba';
-    weatherData(`weather?q=${selectedCity}&appid=${apiKey}&units=metric&lang=pt_br`).then(data =>
-      console.log(data)
+  const handleSubmit = () => {
+    const apiKey = import.meta.env.VITE_API_KEY;
+    fetchData(`weather?q=${selectedCity}&appid=${apiKey}&units=metric&lang=pt_br`, weather).then(
+      data => console.log(data)
     );
   };
 
@@ -37,9 +35,7 @@ const Dropdowns = () => {
     <Container>
       <Dropdown onChange={handleStateChange} label='Estado' data={states} />
       <Dropdown onChange={handleCityChange} label='Cidade' data={cities} />
-      <SearchButton onClick={handleSubmit}>
-        <BiSearch />
-      </SearchButton>
+      <SearchButton onClick={handleSubmit} />
     </Container>
   );
 };
@@ -54,6 +50,14 @@ const Dropdown = ({ label, data, onChange }) => {
         </option>
       ))}
     </Select>
+  );
+};
+
+const SearchButton = ({ onClick }) => {
+  return (
+    <Button onClick={onClick}>
+      <BiSearch />
+    </Button>
   );
 };
 export default Dropdowns;

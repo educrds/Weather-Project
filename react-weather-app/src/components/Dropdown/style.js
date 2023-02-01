@@ -21,12 +21,12 @@ const Container = styled.div`
 const Select = styled.select`
   ${squareStyle};
   width: 150px;
-  padding: 0 .5vw;
+  padding: 0 0.5vw;
 `;
 
-const SearchButton = styled.button`
+const Button = styled.button`
   width: 40px;
   ${squareStyle};
 `;
 
-export { Select, Container, SearchButton };
+export { Select, Container, Button };
