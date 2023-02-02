@@ -1,10 +1,9 @@
 import styled from 'styled-components';
+import { SetupFlex } from '../../styles/globalStyle';
 
 const Nav = styled.nav`
-  display: flex;
+  ${SetupFlex};
   position: relative;
-  justify-content: center;
-  align-items: center;
   height: 30px;
   font-size: 1.25rem;
   padding: 3vh 0;

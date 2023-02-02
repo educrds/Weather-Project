@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
+import { SetupFlex } from '../../styles/globalStyle';
 
-const squareStyle = css`
+const SquareStyle = css`
   border-radius: 0.35rem;
   border: solid 1px ${props => props.theme.input.border};
   height: 40px;
@@ -10,23 +11,20 @@ const squareStyle = css`
 `;
 
 const Container = styled.div`
-  display: flex;
+  ${SetupFlex};
   gap: 10px;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  margin: 3vh 0;
+  margin: 3vh auto;
 `;
 
 const Select = styled.select`
-  ${squareStyle};
-  width: 150px;
+  ${SquareStyle};
+  width: 125px;
   padding: 0 0.5vw;
 `;
 
 const Button = styled.button`
   width: 40px;
-  ${squareStyle};
+  ${SquareStyle};
 `;
 
-export { Select, Container, Button };
+export { Select, Container, Button, SquareStyle };
