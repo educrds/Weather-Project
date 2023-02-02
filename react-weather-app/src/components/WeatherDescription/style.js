@@ -1,0 +1,107 @@
+import styled from 'styled-components';
+import { SetupFlex } from '../../styles/globalStyle';
+import { Container, SquareStyle } from '../Dropdown/style';
+
+const WeatherContainer = styled.div`
+  ${SetupFlex};
+  flex-direction: row;
+  
+  @media (max-width: 675px) {
+    flex-direction: column;
+  }
+
+`;
+
+const TextContainer = styled.div`
+  ${SetupFlex}
+  color: ${props => props.theme.textColor};
+  flex-direction: column;
+  row-gap: 0.2vh;
+
+  img {
+    width: 225px;
+  }
+`;
+const Title = styled.h1`
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  font-size: 3.5rem;
+
+  svg {
+    font-size: 2.5rem;
+    margin-left: -8px;
+  }
+`;
+
+const SmallTitle = styled.p`
+  font-size: 1.3rem;
+`;
+
+const Tag = styled.div`
+  ${SquareStyle};
+  ${SetupFlex};
+  padding: 1vh 3vw;
+  border-radius: 2rem;
+`;
+
+const WeatherSquare = styled(Container)`
+  ${SquareStyle};
+  color: ${props => props.theme.textColor};
+  border-radius: 1.3rem;
+  flex-direction: column;
+  width: 330px;
+  height: 180px;
+  margin: 1vh 1vw;
+`;
+
+const Temperature = styled.div`
+  font-size: 1.8rem;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+
+  > svg {
+    font-size: 3rem;
+  }
+`;
+
+
+const TemperatureContainer = styled.div`
+  ${SetupFlex};
+  gap: 5px;
+
+  > div p {
+    text-align: left;
+  }
+
+  p:nth-child(2) {
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
+`;
+
+const Row = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 75%;
+
+  &.column {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    width: 50%;
+  }
+`;
+
+export {
+  TextContainer,
+  Title,
+  SmallTitle,
+  Tag,
+  WeatherSquare,
+  Temperature,
+  TemperatureContainer,
+  WeatherContainer,
+  Row,
+};
