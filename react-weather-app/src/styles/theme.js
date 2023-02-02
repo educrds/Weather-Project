@@ -1,17 +1,17 @@
 const light = {
   background: '#f5f5f5',
-  textColor: '#001A5E',
+  textColor: '#001A1E',
   
   input: {
     textColor: '#81848a',
-    background: '#FFFFFF',
+    background: '#fcfcfc',
     border: '#cfd4d9',
   },
 };
 
 const dark = {
   background: '#0D1520',
-  textColor: '#fefefe',
+  textColor: '#f5f5f5',
   
   input: {
     textColor: '#81848a',

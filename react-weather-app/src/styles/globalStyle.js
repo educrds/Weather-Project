@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, css } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
     @font-face {
@@ -22,4 +22,11 @@ const GlobalStyle = createGlobalStyle`
     }
 `;
 
-export default GlobalStyle;
+const SetupFlex = css`
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+`;
+
+export { GlobalStyle, SetupFlex };
