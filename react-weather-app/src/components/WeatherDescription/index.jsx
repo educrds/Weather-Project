@@ -21,7 +21,8 @@ const Weather = ({ weatherData }) => {
       <TextContainer>
         <SmallTitle>
           {weekDay}, {hourDay}h.
-        </SmallTitle>{' '}
+        </SmallTitle>{' '} 
+        
         <Title>{weatherData.name}</Title>
         <Tag>
           <SmallTitle>{weatherData.weather[0].description}</SmallTitle>
@@ -34,32 +35,22 @@ const Weather = ({ weatherData }) => {
             {Math.round(weatherData.main.temp)} <TbTemperatureCelsius />
           </Title>
           <Row>
-            <TemperatureInfo
-              icon='src/assets/imgs/weather-icons/thermometer-minus.png'
-              label='Mín.'
-              value={Math.round(weatherData.main.temp_min)}
-              celsius
+            <Temperature
+              icon='thermometer-minus.png'
+              label='Mín'
+              value={weatherData.main.temp_min}
             />
-            <TemperatureInfo
-              icon='src/assets/imgs/weather-icons/thermometer-plus.png'
-              label='Max.'
-              value={Math.round(weatherData.main.temp_max)}
-              celsius
+            <Temperature
+              icon='thermometer-plus.png'
+              label='Máx'
+              value={weatherData.main.temp_max}
             />
           </Row>
         </WeatherSquare>
         <WeatherSquare>
           <Row className='column'>
-            <TemperatureInfo
-              icon='src/assets/imgs/weather-icons/wind.png'
-              label='Vento.'
-              value={`${Math.imul(weatherData.wind.speed, 3.6)} km/h`}
-            />
-            <TemperatureInfo
-              icon='src/assets/imgs/weather-icons/wet.png'
-              label='Umidade'
-              value={`${weatherData.main.humidity}%`}
-            />
+            <Wind value={Math.imul(weatherData.wind.speed, 3.6)} />
+            <Wet value={weatherData.main.humidity} />
           </Row>
         </WeatherSquare>
       </WeatherContainer>
@@ -67,15 +58,42 @@ const Weather = ({ weatherData }) => {
   );
 };
 
-const TemperatureInfo = ({ icon, label, value, celsius }) => {
+const Wind = ({ value }) => {
   return (
     <TemperatureContainer>
-      <img src={icon} alt='' />
+      <img src={`src/assets/imgs/weather-icons/wind.png`} alt='wind icon' />
+      <div>
+        <SmallTitle>Vento</SmallTitle>
+        <p>
+          {value} <span>km/h</span>
+        </p>
+      </div>
+    </TemperatureContainer>
+  );
+};
+
+const Wet = ({ value }) => {
+  return (
+    <TemperatureContainer>
+      <img src={`src/assets/imgs/weather-icons/wet.png`} alt='wind icon' />
+      <div>
+        <SmallTitle>Umidade</SmallTitle>
+        <p>
+          {value} <span>%</span>
+        </p>
+      </div>
+    </TemperatureContainer>
+  );
+};
+
+const Temperature = ({ label, value, icon }) => {
+  return (
+    <TemperatureContainer>
+      <img src={`src/assets/imgs/weather-icons/${icon}`} alt='temperature icon' />
       <div>
         <SmallTitle>{label}</SmallTitle>
         <p>
-          {value}
-          {celsius && <TbTemperatureCelsius />}
+          {Math.round(value)} <span>%</span>
         </p>
       </div>
     </TemperatureContainer>

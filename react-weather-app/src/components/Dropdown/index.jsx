@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Button, Select } from './style';
+import { Container, Button, Select, SpinnerContainer, Loading } from './style';
 import { BiSearch } from 'react-icons/bi';
 import fetchData from '../../services/api';
 import { geo, weather } from '../../services/configApi';
@@ -12,16 +12,20 @@ const Dropdowns = () => {
   const [cities, setCities] = useState([]);
   const [weatherData, setWeatherData] = useState(null);
   const [selectedCity, setSelectedCity] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetchData('/', geo).then(data => setStates(data));
   }, []);
 
   const handleStateChange = e => {
-    setCities([]);
     const stateISO = e.target.options[e.target.selectedIndex].id;
-    setSelectedCity({ ...selectedCity, iso: stateISO });
-    fetchData(`/${stateISO}/cities`, geo).then(data => setCities(data));
+    setCities([]);
+    setIsLoading(true);
+    fetchData(`/${stateISO}/cities`, geo).then(data => {
+      setCities(data);
+      setIsLoading(false);
+    });
   };
 
   const handleCityChange = e => {
@@ -32,14 +36,17 @@ const Dropdowns = () => {
     fetchData(`weather?q=${selectedCity}&appid=${apiKey}&units=metric&lang=pt_br`, weather).then(
       data => setWeatherData(data)
     );
-    setCities([]);
   };
 
   return (
     <>
       <Container>
         <Dropdown onChange={handleStateChange} label='Estado' data={states} />
-        <Dropdown onChange={handleCityChange} label='Cidade' data={cities} />
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : (
+          <Dropdown onChange={handleCityChange} label='Cidade' data={cities} />
+        )}
         <SearchButton onClick={handleSubmit} />
       </Container>
       {weatherData && <Weather weatherData={weatherData} />}
@@ -67,4 +74,13 @@ const SearchButton = ({ onClick }) => {
     </Button>
   );
 };
+
+const LoadingSpinner = () => {
+  return (
+    <SpinnerContainer>
+      <Loading></Loading>
+    </SpinnerContainer>
+  );
+};
+
 export default Dropdowns;

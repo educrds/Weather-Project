@@ -35,7 +35,8 @@ const Title = styled.h1`
 `;
 
 const SmallTitle = styled.p`
-  font-size: 1.3rem;
+  font-size: 1.35rem;
+  color: ${props => props.theme.input.textColor};
 `;
 
 const Tag = styled.div`
@@ -66,6 +67,12 @@ const TemperatureContainer = styled.div`
 
   > div p {
     text-align: left;
+  }
+
+  > div span{
+    font-size: 1.15rem;
+    /* color: ${props => props.theme.input.textColor}; */
+    font-weight: 400;
   }
 
   p:nth-child(2) {

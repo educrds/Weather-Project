@@ -27,4 +27,26 @@ const Button = styled.button`
   ${SquareStyle};
 `;
 
-export { Select, Container, Button, SquareStyle };
+const SpinnerContainer = styled.div`
+  ${SetupFlex};
+`;
+
+const Loading = styled.div`
+  @keyframes spinner {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  width: 25px;
+  height: 25px;
+  border: 3px solid ${props => props.theme.textColor}; /* Light grey */
+  border-top: 3px solid ${props => props.theme.input.background}; /* Blue */
+  border-radius: 50%;
+  animation: spinner .5s linear infinite;
+`;
+
+export { Select, Container, Button, SquareStyle, SpinnerContainer, Loading };
