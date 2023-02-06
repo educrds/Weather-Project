@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   TextContainer,
   Title,
@@ -11,18 +10,11 @@ import {
 } from './style';
 import { TbTemperatureCelsius } from 'react-icons/tb';
 
-const Weather = () => {
+const Weather = ({ weatherData }) => {
   const weekDay = new Date().toLocaleDateString('pt-BR', {
     weekday: 'long',
   });
   const hourDay = new Date().getHours();
-
-  const [description, setDescription] = useState({
-    day: '',
-    hour: '',
-    city: '',
-    weatherDescription: '',
-  });
 
   return (
     <>
@@ -30,28 +22,28 @@ const Weather = () => {
         <SmallTitle>
           {weekDay}, {hourDay}h.
         </SmallTitle>{' '}
-        <Title>Brasília-DF</Title>
+        <Title>{weatherData.name}</Title>
         <Tag>
-          <SmallTitle>Céu limpo</SmallTitle>
+          <SmallTitle>{weatherData.weather[0].description}</SmallTitle>
         </Tag>
-        <img src='src/assets/imgs/weather-icons/01d.svg' alt='sun' />
+        <img src={`src/assets/imgs/weather-icons/${weatherData.weather[0].icon}.svg`} alt='sun' />
       </TextContainer>
       <WeatherContainer>
         <WeatherSquare>
           <Title>
-            25 <TbTemperatureCelsius />
+            {Math.round(weatherData.main.temp)} <TbTemperatureCelsius />
           </Title>
           <Row>
             <TemperatureInfo
               icon='src/assets/imgs/weather-icons/thermometer-minus.png'
               label='Mín.'
-              value='20'
+              value={Math.round(weatherData.main.temp_min)}
               celsius
             />
             <TemperatureInfo
               icon='src/assets/imgs/weather-icons/thermometer-plus.png'
               label='Max.'
-              value='20'
+              value={Math.round(weatherData.main.temp_max)}
               celsius
             />
           </Row>
@@ -61,12 +53,12 @@ const Weather = () => {
             <TemperatureInfo
               icon='src/assets/imgs/weather-icons/wind.png'
               label='Vento.'
-              value='20 km/h'
+              value={`${Math.imul(weatherData.wind.speed, 3.6)} km/h`}
             />
             <TemperatureInfo
               icon='src/assets/imgs/weather-icons/wet.png'
               label='Umidade'
-              value='55%'
+              value={`${weatherData.main.humidity}%`}
             />
           </Row>
         </WeatherSquare>

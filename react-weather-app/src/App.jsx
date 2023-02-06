@@ -2,7 +2,6 @@ import Dropdowns from './components/Dropdown';
 import { Navbar, useTheme } from './components/Navbar';
 import { GlobalStyle } from './styles/globalStyle';
 import { ThemeProvider } from 'styled-components';
-import Weather from './components/WeatherDescription';
 
 function App() {
   const [theme, toggleTheme] = useTheme();
@@ -13,7 +12,6 @@ function App() {
         <GlobalStyle />
         <Navbar onClick={toggleTheme} theme={theme} />
         <Dropdowns />
-        <Weather />
       </ThemeProvider>
     </>
   );

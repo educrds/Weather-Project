@@ -3,11 +3,12 @@ import { Container, Button, Select } from './style';
 import { BiSearch } from 'react-icons/bi';
 import fetchData from '../../services/api';
 import { geo, weather } from '../../services/configApi';
+import Weather from '../WeatherDescription';
 
 const Dropdowns = () => {
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
-
+  const [weatherData, setWeatherData] = useState(null);
   const [selectedCity, setSelectedCity] = useState('');
 
   useEffect(() => {
@@ -27,16 +28,19 @@ const Dropdowns = () => {
   const handleSubmit = () => {
     const apiKey = import.meta.env.VITE_API_KEY;
     fetchData(`weather?q=${selectedCity}&appid=${apiKey}&units=metric&lang=pt_br`, weather).then(
-      data => console.log(data)
+      data => setWeatherData(data)
     );
   };
 
   return (
-    <Container>
-      <Dropdown onChange={handleStateChange} label='Estado' data={states} />
-      <Dropdown onChange={handleCityChange} label='Cidade' data={cities} />
-      <SearchButton onClick={handleSubmit} />
-    </Container>
+    <>
+      <Container>
+        <Dropdown onChange={handleStateChange} label='Estado' data={states} />
+        <Dropdown onChange={handleCityChange} label='Cidade' data={cities} />
+        <SearchButton onClick={handleSubmit} />
+      </Container>
+      {weatherData && <Weather weatherData={weatherData} />}
+    </>
   );
 };
 
