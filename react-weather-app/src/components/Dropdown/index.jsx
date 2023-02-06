@@ -28,25 +28,18 @@ const Dropdowns = () => {
     });
   };
 
-  const handleCityChange = e => {
-    setSelectedCity(e.target.value);
-  };
+  const handleCityChange = e => setSelectedCity(e.target.value);
 
-  const handleSubmit = () => {
+  const handleSubmit = () =>
     fetchData(`weather?q=${selectedCity}&appid=${apiKey}&units=metric&lang=pt_br`, weather).then(
       data => setWeatherData(data)
     );
-  };
 
   return (
     <>
       <Container>
         <Dropdown onChange={handleStateChange} label='Estado' data={states} />
-        {isLoading ? (
-          <LoadingSpinner />
-        ) : (
-          <Dropdown onChange={handleCityChange} label='Cidade' data={cities} />
-        )}
+        {isLoading ? <LoadingSpinner /> : <Dropdown onChange={handleCityChange} label='Cidade' data={cities} />}
         <SearchButton onClick={handleSubmit} />
       </Container>
       {weatherData && <Weather weatherData={weatherData} />}

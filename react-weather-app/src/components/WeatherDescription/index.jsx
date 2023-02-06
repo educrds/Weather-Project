@@ -16,16 +16,17 @@ const Weather = ({ weatherData }) => {
   });
   const hourDay = new Date().getHours();
 
+  const capitalizeFirstLetter = string => string.charAt(0).toUpperCase() + string.slice(1);
+
   return (
     <>
       <TextContainer>
         <SmallTitle>
-          {weekDay}, {hourDay}h.
-        </SmallTitle>{' '} 
-        
+          {capitalizeFirstLetter(weekDay)}, {hourDay}h.
+        </SmallTitle>{' '}
         <Title>{weatherData.name}</Title>
         <Tag>
-          <SmallTitle>{weatherData.weather[0].description}</SmallTitle>
+          <SmallTitle>{capitalizeFirstLetter(weatherData.weather[0].description)}</SmallTitle>
         </Tag>
         <img src={`src/assets/imgs/weather-icons/${weatherData.weather[0].icon}.svg`} alt='sun' />
       </TextContainer>
