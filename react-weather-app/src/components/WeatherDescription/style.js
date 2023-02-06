@@ -55,21 +55,13 @@ const WeatherSquare = styled(Container)`
   margin: 1vh 1vw;
 `;
 
-const Temperature = styled.div`
-  font-size: 1.8rem;
-  height: 100%;
-  display: flex;
-  align-items: flex-end;
-
-  > svg {
-    font-size: 3rem;
-  }
-`;
-
-
 const TemperatureContainer = styled.div`
   ${SetupFlex};
   gap: 5px;
+
+  > img{
+    width: 36px;
+  }
 
   > div p {
     text-align: left;
@@ -100,7 +92,6 @@ export {
   SmallTitle,
   Tag,
   WeatherSquare,
-  Temperature,
   TemperatureContainer,
   WeatherContainer,
   Row,

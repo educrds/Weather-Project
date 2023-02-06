@@ -5,16 +5,18 @@ import {
   Tag,
   SmallTitle,
   WeatherSquare,
-  Temperature,
   TemperatureContainer,
   WeatherContainer,
   Row,
 } from './style';
-import { TbTemperatureCelsius, TbTemperatureMinus, TbTemperaturePlus } from 'react-icons/tb';
-
-import { WiHumidity, WiWindy } from 'react-icons/wi';
+import { TbTemperatureCelsius } from 'react-icons/tb';
 
 const Weather = () => {
+  const weekDay = new Date().toLocaleDateString('pt-BR', {
+    weekday: 'long',
+  });
+  const hourDay = new Date().getHours();
+
   const [description, setDescription] = useState({
     day: '',
     hour: '',
@@ -25,12 +27,14 @@ const Weather = () => {
   return (
     <>
       <TextContainer>
-        <SmallTitle>Quinta-feira, 9h</SmallTitle>
+        <SmallTitle>
+          {weekDay}, {hourDay}h.
+        </SmallTitle>{' '}
         <Title>Brasília-DF</Title>
         <Tag>
           <SmallTitle>Céu limpo</SmallTitle>
         </Tag>
-        <img src='src/assets/imgs/weather-icons/01d.svg' alt='' />
+        <img src='src/assets/imgs/weather-icons/01d.svg' alt='sun' />
       </TextContainer>
       <WeatherContainer>
         <WeatherSquare>
@@ -38,14 +42,32 @@ const Weather = () => {
             25 <TbTemperatureCelsius />
           </Title>
           <Row>
-            <TemperatureInfo icon={<TbTemperatureMinus />} label='Mín.' value='20' celsius />
-            <TemperatureInfo icon={<TbTemperaturePlus />} label='Max.' value='20' celsius />
+            <TemperatureInfo
+              icon='src/assets/imgs/weather-icons/thermometer-minus.png'
+              label='Mín.'
+              value='20'
+              celsius
+            />
+            <TemperatureInfo
+              icon='src/assets/imgs/weather-icons/thermometer-plus.png'
+              label='Max.'
+              value='20'
+              celsius
+            />
           </Row>
         </WeatherSquare>
         <WeatherSquare>
           <Row className='column'>
-            <TemperatureInfo icon={<WiWindy />} label='Vento.' value='20 km/h' />
-            <TemperatureInfo icon={<WiHumidity />} label='Umidade' value='55%' />
+            <TemperatureInfo
+              icon='src/assets/imgs/weather-icons/wind.png'
+              label='Vento.'
+              value='20 km/h'
+            />
+            <TemperatureInfo
+              icon='src/assets/imgs/weather-icons/wet.png'
+              label='Umidade'
+              value='55%'
+            />
           </Row>
         </WeatherSquare>
       </WeatherContainer>
@@ -56,7 +78,7 @@ const Weather = () => {
 const TemperatureInfo = ({ icon, label, value, celsius }) => {
   return (
     <TemperatureContainer>
-      <Temperature>{icon}</Temperature>
+      <img src={icon} alt='' />
       <div>
         <SmallTitle>{label}</SmallTitle>
         <p>
