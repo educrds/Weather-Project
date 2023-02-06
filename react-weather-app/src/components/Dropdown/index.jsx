@@ -5,6 +5,8 @@ import fetchData from '../../services/api';
 import { geo, weather } from '../../services/configApi';
 import Weather from '../WeatherDescription';
 
+const apiKey = import.meta.env.VITE_API_KEY;
+
 const Dropdowns = () => {
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
@@ -18,6 +20,7 @@ const Dropdowns = () => {
   const handleStateChange = e => {
     setCities([]);
     const stateISO = e.target.options[e.target.selectedIndex].id;
+    setSelectedCity({ ...selectedCity, iso: stateISO });
     fetchData(`/${stateISO}/cities`, geo).then(data => setCities(data));
   };
 
@@ -26,10 +29,10 @@ const Dropdowns = () => {
   };
 
   const handleSubmit = () => {
-    const apiKey = import.meta.env.VITE_API_KEY;
     fetchData(`weather?q=${selectedCity}&appid=${apiKey}&units=metric&lang=pt_br`, weather).then(
       data => setWeatherData(data)
     );
+    setCities([]);
   };
 
   return (

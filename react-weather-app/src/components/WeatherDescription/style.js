@@ -5,11 +5,10 @@ import { Container, SquareStyle } from '../Dropdown/style';
 const WeatherContainer = styled.div`
   ${SetupFlex};
   flex-direction: row;
-  
+
   @media (max-width: 675px) {
     flex-direction: column;
   }
-
 `;
 
 const TextContainer = styled.div`
@@ -20,6 +19,7 @@ const TextContainer = styled.div`
 
   img {
     width: 225px;
+    filter: drop-shadow(rgba(0, 0, 0, 0.16) 0px 1px 4px);
   }
 `;
 const Title = styled.h1`
@@ -41,8 +41,9 @@ const SmallTitle = styled.p`
 const Tag = styled.div`
   ${SquareStyle};
   ${SetupFlex};
-  padding: 1vh 3vw;
+  padding: 1vh 2vw;
   border-radius: 2rem;
+  width: auto;
 `;
 
 const WeatherSquare = styled(Container)`
@@ -59,7 +60,7 @@ const TemperatureContainer = styled.div`
   ${SetupFlex};
   gap: 5px;
 
-  > img{
+  > img {
     width: 36px;
   }
 
